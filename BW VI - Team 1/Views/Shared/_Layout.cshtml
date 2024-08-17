@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BW_VI___Team_1</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BW_VI___Team_1.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow  p-0 ">
+            <div class="container-fluid ColorNavbar">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img id="logo" src="~/images/logoLifePet.png" alt="logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between ">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li><a class="nav-link text-light" asp-controller="Animal" asp-action="SearchBy">Cerca per MicroChip</a></li>  
+                        @if (User.IsInRole("Veterinarian"))
+                        {
+                        <div class="dropdown">
+                            <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Proprietari
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link text-dark" asp-controller="Owner" asp-action="Index">Proprietari</a></li>
+                                <li><a class="nav-link text-dark" asp-controller="Owner" asp-action="AddOwner">Aggiungi proprietario</a></li>
+                                <li><a class="nav-link text-dark" asp-controller="Owner" asp-action="SearchBy">Cerca per CF</a></li>
+                            </ul>
+                        </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Animali
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Animal" asp-action="Index">Animali</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Animal" asp-action="AddAnimal">Aggiungi animale</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ricoveri
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Recovery" asp-action="Index">Ricoveri</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Recovery" asp-action="AddRecovery">Aggiungi ricovero</a></li>
+                                </ul>
+                            </div>
+
+
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Visite
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Visit" asp-action="Index">Visite</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Visit" asp-action="AddVisit">Aggiungi visita</a></li>
+                                </ul>
+                            </div>
+                        }
+                        @if(User.IsInRole("Pharmacist"))
+                        {
+                        <div class="dropdown">
+                            <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Prodotti
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link text-dark" asp-controller="Product" asp-action="Index">Prodotti</a></li>
+                                <li><a class="nav-link text-dark" asp-controller="Product" asp-action="AddProduct">Aggiungi prodotto</a></li>
+                            </ul>
+                        </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Locker
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Locker" asp-action="Index">Armadietti</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Locker" asp-action="AddLocker">Aggiungi Armadietto</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Fornitori
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Supplier" asp-action="Index">Fornitori</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Supplier" asp-action="AddSupplier">Aggiungi fornitore</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ordini
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Order" asp-action="Index">Ordini</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Order" asp-action="AddOrder">Aggiungi ordine</a></li>
+                                </ul>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-white dropdown-toggle text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Usi
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark" asp-controller="Usage" asp-action="Index">Usi</a></li>
+                                    <li><a class="nav-link text-dark" asp-controller="Usage" asp-action="AddUsage">Aggiungi uso</a></li>
+                                </ul>
+                            </div>
+                        }                             
+
+                    </ul>
+                    <div class="d-lg-flex flex-lg-fill justify-content-end align-items-center">
+                        @if (!Context.User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link text-light" asp-controller="Auth" asp-action="Login">Login</a>
+                            <a class="nav-link text-light" asp-controller="Auth" asp-action="Register">Register</a>
+                        }
+                        else
+                        {
+                            <form asp-controller="Auth" asp-action="Logout" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-link text-light" style="text-decoration:none">Logout</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-auto ColorNavbar d-flex justify-content-between">
+        <div class="text-white flex-fill text-center align-self-center">
+            <address>
+                LifePet.com <br />
+                <a href="mailto:info@yiw.org" class="footer-link">Email</a> <br />
+                Indirizzo: Via dei Tali, 586 Bologna <br />
+                Telefono : 123 456
+            </address>
+        </div>
+        <div class="flex-fill text-center align-self-center">
+            <figure>
+                <img id="logo" src="~/images/logoLifePet.png" alt="logo" />
+                <figcaption><a href="https://localhost:7054/importedProject/EmployeesOfTheMonth/index.html" class="footer-link">Scopri i nostri dipendenti del mese</a></figcaption>
+            </figure>
+        </div>
+        <div class="flex-fill text-center align-self-center">
+            <p class="text-white">Realizzato da: </p>
+            <ul class="text-decoration-none" style="list-style-type: none;">
+                <li> <a href="https://github.com/mrz1mm" class="footer-link">Simone Atanasio </a></li>
+                <li> <a href="https://github.com/SasyB1" class="footer-link">Salvatore Buonaiuto </a></li>
+                <li> <a href="https://github.com/Eddy7642" class="footer-link">Luca Chisari </a></li>
+                <li> <a href="https://github.com/nicherri" class="footer-link">Nicola Schirripa </a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
